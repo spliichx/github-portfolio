@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chukwudi Aboaja | Spliichx - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
 
     <style>
         :root {
@@ -103,40 +105,38 @@
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 2000px;
             margin: 0 auto;
             padding: 0 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 50px;
+            flex-shrink: 0;
+           
         }
 
         .logo {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--teal-blue), var(--electric-violet));
-            border-radius: 12px;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: white;
+            transition: all 0.3s ease;
         }
 
-        .brand-name {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--teal-blue), var(--electric-violet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Logo image styles for when we replace with actual logos */
+        .logo img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            border-radius: 50%;
         }
 
         .nav-menu {
@@ -344,6 +344,12 @@
             position: relative;
             z-index: 1;
         }
+
+        .folder-icon img {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+}
 
         .folder-card h3 {
             font-size: 1.5rem;
@@ -717,6 +723,8 @@
             color: var(--teal-blue);
         }
 
+
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
@@ -756,10 +764,20 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+
+            .logo-upload-info {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px;
+                max-width: none;
+            }
         }
     </style>
 </head>
 <body>
+
+
     <!-- Background Elements -->
     <div class="bg-elements">
         <div class="floating-orb orb-1"></div>
@@ -771,8 +789,12 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="logo-container">
-                <div class="logo">S</div>
-                <div class="brand-name">spliichx</div>
+                <div class="logo" id="logoIcon">
+                    <img src="/images/logo2.png" alt="LogoIcon">
+                </div>
+                <!-- <div class="brand-name" id="brandName">
+                    <img src="/images/spliichx.png" alt="Logo">
+                </div> -->
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
@@ -798,8 +820,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        </div>
-    </nav>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -826,27 +847,27 @@
 
         <div class="portfolio-structure">
             <div class="folder-card">
-                <div class="folder-icon">🎨</div>
+                <div class="folder-icon"><img src="icons/tableau.png" alt="Tableau Icon" /></div>
                 <h3>Tableau</h3>
                 <p>Complete design systems, user interfaces, and user experience projects with case studies and design process documentation.</p>
                 <div class="folder-stats">
-                    <span>📁 /design-projects/</span>
+                    <span>📁 /tableau-projects/</span>
                     <span>12 Projects</span>
                 </div>
             </div>
 
             <div class="folder-card">
-                <div class="folder-icon">💻</div>
+                <div class="folder-icon"><img src="icons/Power-BI.png" alt="Power Bi Icon" /></div>
                 <h3>Power BI</h3>
                 <p>Full-stack web applications, responsive websites, and interactive web experiences built with modern technologies.</p>
                 <div class="folder-stats">
-                    <span>📁 /Power-BI/</span>
+                    <span>📁 /power-bi/</span>
                     <span>18 Projects</span>
                 </div>
             </div>
 
             <div class="folder-card">
-                <div class="folder-icon">📱</div>
+                <div class="folder-icon"><i class="fa fa-database"></i></div>
                 <h3>SQL</h3>
                 <p>Native and cross-platform mobile applications with intuitive user interfaces and seamless user experiences.</p>
                 <div class="folder-stats">
@@ -856,27 +877,27 @@
             </div>
 
             <div class="folder-card">
-                <div class="folder-icon">🚀</div>
-                <h3>SaaS Products</h3>
+                <div class="folder-icon"><img src="icons/ml_logo.png" alt="ml Icon" /></div>
+                <h3>Machine Learning</h3>
                 <p>Complete software-as-a-service solutions from concept to deployment, including business logic and scalable architecture.</p>
                 <div class="folder-stats">
-                    <span>📁 /saas-products/</span>
+                    <span>📁 /machine-learning/</span>
                     <span>6 Products</span>
                 </div>
             </div>
 
             <div class="folder-card">
-                <div class="folder-icon">🔧</div>
+                <div class="folder-icon"><img src="icons/dbt-logo.png" alt="dbt Icon" /></div>
                 <h3>dbt Project</h3>
                 <p>Contributing to the developer community with open-source libraries, tools, and frameworks available on GitHub.</p>
                 <div class="folder-stats">
-                    <span>📁 /open-source/</span>
+                    <span>📁 /dbt-projects/</span>
                     <span>15 Repos</span>
                 </div>
             </div>
 
             <div class="folder-card">
-                <div class="folder-icon">📊</div>
+                <div class="folder-icon"><img src="icons/Report.png" alt="report Icon" /></div>
                 <h3>Data Visualization</h3>
                 <p>Interactive dashboards, analytics platforms, and data visualization projects that transform complex data into insights.</p>
                 <div class="folder-stats">
