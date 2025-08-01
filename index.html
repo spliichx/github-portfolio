@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,6 +234,9 @@
             gap: 10px;
             position: relative;
             overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .btn-secondary {
@@ -356,7 +358,7 @@
             max-width: 70%;
             max-height: 70%;
             object-fit: contain;
-}
+        }
 
         .folder-card h3 {
             font-size: 1.5rem;
@@ -611,6 +613,28 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        /* Success/Error Messages */
+        .form-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
         /* Footer */
         .footer {
             background: rgba(15, 23, 42, 0.9);
@@ -683,6 +707,8 @@
             border: none;
             cursor: pointer;
             padding: 5px;
+            z-index: 1001;
+            position: relative;
         }
 
         .mobile-menu-btn span {
@@ -692,19 +718,32 @@
             transition: all 0.3s ease;
         }
 
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
         .mobile-menu {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 80%;
-            max-width: 300px;
+            width: 100%;
+            max-width: 350px;
             height: 100vh;
             background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(20px);
-            padding: 100px 30px 30px;
+            padding: 120px 30px 30px;
             transition: right 0.3s ease;
-            z-index: 999;
+            z-index: 1000;
             border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -721,16 +760,36 @@
         .mobile-menu a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 500;
             transition: color 0.3s ease;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: block;
         }
 
         .mobile-menu a:hover {
             color: var(--teal-blue);
         }
 
+        /* Mobile Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
 
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -772,18 +831,47 @@
                 grid-template-columns: 1fr;
             }
 
-            .logo-upload-info {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 20px;
-                max-width: none;
+            .portfolio-structure {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+
+            .folder-card,
+            .project-card,
+            .skill-category {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-
+ <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Background Elements -->
     <div class="bg-elements">
@@ -810,7 +898,7 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -927,18 +1015,21 @@
                 <div class="project-image">🎯</div>
                 <div class="project-content">
                     <h3>Sales Analytics Dashboard</h3>
-                    <p>A comprehensive analytics dashboard for e-commerce businesses with real-time data visualization, customer insights, and performance tracking.</p>
+                    <p>Gain real-time insights into sales performance, customer behavior, and revenue trends. 
+                        This dashboard empowers decision-makers with clear visualizations and 
+                        key metrics such as total sales, top-performing products, regional performance, customer segments, and sales growth over time.
+                        Designed to support data-driven strategies, this tool helps identify opportunities, 
+                        track KPIs, and optimize sales processes for better results.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">D3.js</span>
-                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Power Query</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">DAX</span>
+                        <span class="tech-tag">Business Intelligence Reportings</span>
+                        <span class="tech-tag">Excel</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Live Demo</a>
                         <a href="#" class="project-link">GitHub</a>
-                        <a href="#" class="project-link">Case Study</a>
+                        <a href="#" class="project-link">Documentation</a>
                     </div>
                 </div>
             </div>
@@ -946,18 +1037,19 @@
             <div class="project-card">
                 <div class="project-image">🌟</div>
                 <div class="project-content">
-                    <h3>AI-Powered Content Creator</h3>
-                    <p>SaaS platform that leverages AI to help content creators generate, optimize, and schedule social media content across multiple platforms.</p>
+                    <h3>Data Warehouse & Analytics Project</h3>
+                    <p>This project showcases the design and implementation of a scalable data warehouse architecture to centralize, store, 
+                        and analyze business data efficiently. It includes the full ETL/ELT pipeline — from raw data ingestion to reporting,
+                         enabling streamlined analytics and accurate decision-making</p>
                     <div class="project-tech">
-                        <span class="tech-tag">Vue.js</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Data Warehouse Design</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">CSVs</span>
+                        <span class="tech-tag">Databases</span>
+                        <span class="tech-tag">Dimensional Modeling</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Live Demo</a>
-                        <a href="#" class="project-link">Documentation</a>
+                        <a href="#" class="project-link">GitHub</a>
                         <a href="#" class="project-link">API</a>
                     </div>
                 </div>
@@ -966,13 +1058,15 @@
             <div class="project-card">
                 <div class="project-image">🔮</div>
                 <div class="project-content">
-                    <h3>Collaborative Design System</h3>
-                    <p>A comprehensive design system and component library that enables teams to build consistent, accessible, and scalable digital products.</p>
+                    <h3>House Price Prediction</h3>
+                    <p>Developed a robust regression model to accurately predict house prices based on features such as location, 
+                        size, number of rooms, and property condition. The project covers the full ML pipeline, 
+                        from data preprocessing and feature engineering to model training, evaluation, and deployment.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">Storybook</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">Figma</span>
-                        <span class="tech-tag">Styled Components</span>
+                        <span class="tech-tag">Data Preprocessing & Feature Engineering</span>
+                        <span class="tech-tag">Pipeline Creation</span>
+                        <span class="tech-tag">Regression</span>
+                        <span class="tech-tag">Version Control & CI/CD</span>
                         <span class="tech-tag">Jest</span>
                     </div>
                     <div class="project-links">
@@ -1116,7 +1210,7 @@
             </div>
 
             <div class="contact-form">
-                <form id="contactForm">
+                <form id="contactForm" action="https://formspree.io/f/myyyzzzz" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -1146,7 +1240,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="social-links">
-                <a href="https://github.com/spliichx" class="social-link" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://spliichx.github.io/github-portfolio/" class="social-link" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/chukwudi-aboaja" class="social-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:chukwudi.aboaja@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
                 <a href="https://twitter.com/spliichx" class="social-link" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -1167,14 +1261,26 @@
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileLinks = mobileMenu.querySelectorAll('a');
 
-            mobileMenuBtn.addEventListener('click', () => {
+            function toggleMenu() {
+                const isActive = mobileMenu.classList.contains('active');
                 mobileMenu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                
+                // Toggle body overflow to prevent scrolling when menu is open
+                document.body.style.overflow = isActive ? 'auto' : 'hidden';
+            }
+
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
             });
 
             // Close mobile menu when clicking on a link
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 });
             });
 
@@ -1182,6 +1288,17 @@
             document.addEventListener('click', (e) => {
                 if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                     mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close menu when pressing Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 }
             });
         }
@@ -1237,31 +1354,66 @@
         // Contact form functionality
         function setupContactForm() {
             const form = document.getElementById('contactForm');
-            form.addEventListener('submit', function(e) {
+            const formGroups = form.querySelectorAll('.form-group');
+            
+            // Add validation classes
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, textarea');
+                if (input) {
+                    input.addEventListener('input', () => {
+                        if (input.value.trim() !== '') {
+                            group.classList.add('valid');
+                            group.classList.remove('invalid');
+                        } else {
+                            group.classList.remove('valid');
+                        }
+                    });
+                }
+            });
+            
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                const email = formData.get('email');
-                const subject = formData.get('subject');
-                const message = formData.get('message');
+                // Validate all fields
+                let isValid = true;
+                formGroups.forEach(group => {
+                    const input = group.querySelector('input, textarea');
+                    if (input && input.required && input.value.trim() === '') {
+                        group.classList.add('invalid');
+                        isValid = false;
+                    }
+                });
                 
-                if (name && email && subject && message) {
-                    // Simulate form submission
-                    const submitBtn = form.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
+                if (!isValid) return;
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<span>Sending...</span>';
+                submitBtn.disabled = true;
+                
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
                     
-                    submitBtn.innerHTML = '<span>Sending...</span>';
-                    submitBtn.disabled = true;
-                    
-                    setTimeout(() => {
+                    if (response.ok) {
                         alert('Thank you for your message! I\'ll get back to you soon.');
                         form.reset();
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    }, 2000);
-                } else {
-                    alert('Please fill in all required fields.');
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    alert('There was a problem sending your message. Please try again later.');
+                    console.error('Error:', error);
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
                 }
             });
         }
