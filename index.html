@@ -190,6 +190,54 @@
             animation: fadeInUp 1s ease-out;
         }
 
+        /* Profile Picture Styles */
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            border: 4px solid var(--teal-blue);
+            box-shadow: 0 10px 30px rgba(0, 181, 176, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 181, 176, 0.4);
+        }
+
+        .profile-picture:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Add subtle glow effect */
+        .profile-picture::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--teal-blue), var(--electric-violet), var(--teal-blue));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-picture:hover::before {
+            opacity: 1;
+        }
+
         .hero-subtitle {
             font-size: 1.2rem;
             color: var(--teal-blue);
@@ -827,8 +875,10 @@
                 height: 50px;
             }
 
-            .hero-title {
-                font-size: 2.2rem;
+            /* Profile picture mobile adjustments */
+            .profile-picture {
+                width: 120px;
+                height: 120px;
                 margin-bottom: 25px;
             }
 
@@ -977,6 +1027,10 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
+            <!-- Profile Picture -->
+            <div class="profile-picture">
+                <img src="images/profile-photo.jpg" alt="Chukwudi Aboaja - Data Analyst">
+            </div>
             <div class="hero-subtitle">Analytics Meets Imagination</div>
             <h1 class="hero-title">Bringing data to life through storytelling, creativity, and innovation.</h1>
             <p class="hero-description">Behind every dataset is a story waiting to be told. I craft intuitive dashboards, engaging visualizations, and intelligent models that bridge the gap between numbers and narratives. As a data analyst and creative problem-solver, I thrive on turning abstract ideas into tangible solutions that inspire action.</p>
@@ -989,6 +1043,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Portfolio Structure Section -->
     <section id="portfolio" class="section fade-in">
