@@ -85,7 +85,7 @@
             75% { transform: translate(25px, 10px) scale(1.05); }
         }
 
-        /* Navigation */
+        /* Navigation - FIXED HEIGHT ISSUES */
         .navbar {
             position: fixed;
             top: 0;
@@ -96,11 +96,14 @@
             z-index: 1000;
             transition: all 0.3s ease;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            /* Define minimum height for consistency */
+            min-height: 80px;
         }
 
         .navbar.scrolled {
             padding: 15px 0;
             background: rgba(15, 23, 42, 0.98);
+            min-height: 70px;
         }
 
         .nav-container {
@@ -169,7 +172,7 @@
             width: 100%;
         }
 
-        /* Hero Section */
+        /* Hero Section - FIXED MOBILE POSITIONING */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -178,6 +181,8 @@
             text-align: center;
             position: relative;
             padding: 0 50px;
+            /* Add top padding to account for fixed navbar */
+            padding-top: 120px;
         }
 
         .hero-content {
@@ -289,16 +294,6 @@
             max-width: 600px;
             margin: 0 auto;
         }
-
-        @media (max-width: 768px) {
-        .hero-title {
-            font-size: 2rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-        }
-}
 
         /* Portfolio Gallery Structure */
         .portfolio-structure {
@@ -698,7 +693,7 @@
             transform: translateY(0);
         }
 
-        /* Mobile Menu Button - FIXED */
+        /* Mobile Menu Button */
         .mobile-menu-btn {
             display: none;
             flex-direction: column;
@@ -734,12 +729,12 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* Mobile Menu - FIXED */
+        /* Mobile Menu */
         .mobile-menu {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 280px; /* Fixed width instead of 100% */
+            width: 280px;
             height: 100vh;
             background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(20px);
@@ -776,7 +771,7 @@
             color: var(--teal-blue);
         }
 
-        /* Mobile Overlay - IMPROVED */
+        /* Mobile Overlay */
         .mobile-overlay {
             position: fixed;
             top: 0;
@@ -795,7 +790,7 @@
             visibility: visible;
         }
 
-        /* Responsive Design - IMPROVED */
+        /* Responsive Design - MOBILE FIXES */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 0 20px;
@@ -809,16 +804,50 @@
                 display: flex;
             }
 
+            /* CRITICAL FIX: Increase hero section top padding on mobile */
             .hero {
                 padding: 0 20px;
+                padding-top: 140px; /* Increased padding for mobile */
+                min-height: calc(100vh - 60px); /* Account for mobile browser UI */
+            }
+
+            /* Reduce navbar height on mobile for better space utilization */
+            .navbar {
+                padding: 15px 0;
+                min-height: 70px;
+            }
+
+            .navbar.scrolled {
+                padding: 12px 0;
+                min-height: 60px;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+                margin-bottom: 35px;
             }
 
             .section {
                 padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
 
             .contact-content {
@@ -847,19 +876,23 @@
                 flex-wrap: wrap;
             }
 
-            /* Ensure mobile menu doesn't affect page layout */
             body.menu-open {
                 overflow: hidden;
             }
         }
 
         @media (max-width: 480px) {
+            /* EXTRA MOBILE PADDING FOR VERY SMALL SCREENS */
+            .hero {
+                padding-top: 160px; /* Even more padding for very small screens */
+            }
+
             .hero-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .hero-description {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .section-title {
@@ -876,9 +909,22 @@
                 padding: 20px;
             }
 
-            /* Make mobile menu narrower on very small screens */
             .mobile-menu {
                 width: 250px;
+            }
+        }
+
+        /* ADDITIONAL FIX: Safe area padding for devices with notches */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .hero {
+                padding-top: max(140px, calc(env(safe-area-inset-top) + 120px));
+            }
+        }
+
+        /* Fix for very tall mobile screens */
+        @media (max-width: 768px) and (min-height: 800px) {
+            .hero {
+                padding-top: 160px;
             }
         }
     </style>
@@ -901,9 +947,6 @@
                 <div class="logo" id="logo Icon">
                     <img src="images/icon.png" alt="Logo Icon">
                 </div>
-                <!-- <div class="brand-name" id="brandName">
-                    <img src="/images/spliichx.png" alt="Logo">
-                </div> -->
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
